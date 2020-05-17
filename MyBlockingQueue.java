@@ -15,26 +15,28 @@ class MyBlockingQueue<Integer> {
     this.max = size;
   }
 
-  public void put(Integer e) throws InterruptedException{
+  public void put(Integer e) throws InterruptedException {
     lock.lock();
-    try{
-      while(queue.size() == max){
+    try {
+      while (queue.size() == max){
         notFull.await();
       }
       queue.add(e);
+      System.out.println("+ Piatto aggiunto! " + e);
       notEmpty.signalAll();
     } finally{
       lock.unlock();
     }
   }
 
-  public Integer take() throws InterruptedException{
+  public Integer take() throws InterruptedException {
     lock.lock();
-    try{
-      while(queue.size() == 0){
+    try {
+      while (queue.size() == 0){
         notEmpty.await();
       }
       Integer item = queue.remove();
+      System.out.println("- Piatto tolto..  " + item);
       notFull.signalAll();
       return item;
     } finally{

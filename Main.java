@@ -11,7 +11,6 @@ class Main {
         try {
           int x = createItem();
           queue.put(x);
-          System.out.println("+ ADD " + x);
 
           Thread.sleep(500);
 
@@ -25,8 +24,7 @@ class Main {
     final Runnable consumer = () -> {
       while (true) {
         try {
-          Integer i = (Integer) queue.take();
-          System.out.println("- DEL " + i);
+          queue.take();
 
           Thread.sleep(500);
 
