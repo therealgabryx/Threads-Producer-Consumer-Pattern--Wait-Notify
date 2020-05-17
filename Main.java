@@ -12,7 +12,7 @@ class Main {
           int x = createItem();
           queue.put(x);
 
-          Thread.sleep(500);
+          Thread.sleep(300);
 
         } catch (InterruptedException e) { }
       }
