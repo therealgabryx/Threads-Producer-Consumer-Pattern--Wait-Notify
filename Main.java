@@ -7,7 +7,7 @@ class Main {
     MyBlockingQueue queue = new MyBlockingQueue(10);
 
     final Runnable producer = () -> {
-      while (true) {
+      for (int i = 0; i < 10; i++) { 
         try {
           int x = createItem();
           queue.put(x);
@@ -22,7 +22,7 @@ class Main {
     new Thread(producer).start();
 
     final Runnable consumer = () -> {
-      while (true) {
+      for (int i = 0; i < 10; i++) {
         try {
           queue.take();
 

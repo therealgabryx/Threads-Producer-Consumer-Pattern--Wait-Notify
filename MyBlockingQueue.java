@@ -11,35 +11,35 @@ class MyBlockingQueue<Integer> {
     private Condition notFull = lock.newCondition();
     
     public MyBlockingQueue(int size) {
-    queue = new LinkedList<>();
-    this.max = size;
-  }
+      this.queue = new LinkedList<>();
+      this.max = size;
+    }
 
   public void put(Integer e) throws InterruptedException {
     lock.lock();
     try {
-      while (queue.size() == max){
+      while (queue.size() == max) {
         notFull.await();
       }
       queue.add(e);
       System.out.println("+ Piatto aggiunto! " + e);
       notEmpty.signalAll();
-    } finally{
+    } finally { 
       lock.unlock();
-    }
+    } 
   }
 
   public Integer take() throws InterruptedException {
     lock.lock();
     try {
-      while (queue.size() == 0){
-        notEmpty.await();
+      while (queue.size() == 0) {
+        notEmpty.await(); 
       }
       Integer item = queue.remove();
       System.out.println("- Piatto tolto..  " + item);
       notFull.signalAll();
       return item;
-    } finally{
+    } finally {
       lock.unlock();
     }
   }
